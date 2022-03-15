@@ -4,13 +4,13 @@
 
 ___X_CMD_JO_AWK="$(xrc which awk/lib/jo.awk)"
 
-x jo '{
-    abc: cde,
-    cde: eft,
-    abc: aaa
-}'
+# x jo '{
+#     abc: cde,
+#     cde: eft,
+#     abc: aaa
+# }'
 
-x jo abc cde abc
+# x jo abc cde abc
 ___x_cmd_jo(){
     if [ ! -t 1 ]; then
         command awk -f "$___X_CMD_JO_AWK"
@@ -32,5 +32,26 @@ ___x_cmd_jo(){
 
     command awk -f "$___X_CMD_JO_AWK" "$@" </dev/null
 }
+
+# Section: list
+
+# x jo list 1 2 3
+___x_cmd_jo_list(){
+    :
+}
+
+# EndSection
+
+
+# Section: dict
+
+# x jo dict abc cde fge abc=123 aaa=$abc
+# x jo "{ abc: $abc, cde: $cde, fge: $fge }"
+___x_cmd_jo_dict(){
+    :
+}
+
+# EndSection
+
 
 xrc setmain ___x_cmd_jo
