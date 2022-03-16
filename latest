@@ -2,7 +2,7 @@
 
 # author:       Li Junhao           l@x-cmd.com
 
-___X_CMD_JO_AWK="$___X_CMD_ROOT/jo/lib/jo.awk"
+___X_CMD_JO_AWK="$___X_CMD_ROOT/awk/lib/jo.awk"
 
 # x jo '{
 #     abc: cde,
@@ -16,7 +16,7 @@ ___x_cmd_jo(){
         command awk -f "$___X_CMD_JO_AWK"
     fi
 
-    local op="${1:?Provide op}";  shift
+    local op="${1:?Provide op}"
     case "$op" in
         list)
             return
@@ -25,12 +25,13 @@ ___x_cmd_jo(){
             return
             ;;
         -)
-            command awk -f "$___X_CMD_JO_AWK"
+            command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk"
             return
             ;;
     esac
 
-    command awk -f "$___X_CMD_JO_AWK" "$@" </dev/null
+    local IFS
+    printf "%s" "$*" | command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk"
 }
 
 # Section: list
