@@ -2,7 +2,7 @@
 
 # author:       Li Junhao           l@x-cmd.com
 
-___X_CMD_JO_AWK="$___X_CMD_ROOT/jo/lib/jo.awk)"
+___X_CMD_JO_AWK="$___X_CMD_ROOT/jo/lib/jo.awk"
 
 # x jo '{
 #     abc: cde,
