@@ -42,7 +42,6 @@ ___x_cmd_jo_list(){
 
 # EndSection
 
-
 # Section: dict
 
 # x jo dict abc cde fge abc=123 aaa=$abc
@@ -52,6 +51,5 @@ ___x_cmd_jo_dict(){
 }
 
 # EndSection
-
 
 xrc setmain ___x_cmd_jo
