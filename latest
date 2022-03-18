@@ -20,19 +20,21 @@ ___x_cmd_jo(){
 }
 
 ___x_cmd_jo_awk(){  command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk";    }
-___x_cmd_jo_awk_colorized(){ command awk -f "$___X_CMD_ROOT/awk/lib/re.awk";  }
 
 ___x_cmd_jo_wrap(){
     if [ ! -t 1 ]; then
         "$@"
     else
-        "$@" | ___x_cmd_jo_awk_colorized
+        "$@" | COLOR=1 ___x_cmd_jo_awk_fmt
     fi
 }
 
 # arg: indent
 ___x_cmd_jo_fmt(){
-    :
+    command awk -v COLOR="$COLOR" -v INDENT="${1:-2}}" \
+        -f "$___X_CMD_ROOT/awk/lib/re.awk" \
+        -f "$___X_CMD_ROOT/awk/lib/json.awk" \
+        -f "$___X_CMD_ROOT/jo/lib/fmt.awk"
 }
 
 # time ___x_cmd_jo_list 1 2 \"true\" $( ___x_cmd_jo_list 1 2 3)
