@@ -32,8 +32,6 @@ ___x_cmd_jo_wrap(){
 # arg: indent
 ___x_cmd_jo_fmt(){
     command awk -v COLOR="$COLOR" -v INDENT="${1:-2}}" \
-        -f "$___X_CMD_ROOT/awk/lib/re.awk" \
-        -f "$___X_CMD_ROOT/awk/lib/json.awk" \
         -f "$___X_CMD_ROOT/jo/lib/fmt.awk"
 }
 

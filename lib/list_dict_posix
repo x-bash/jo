@@ -89,15 +89,15 @@ END {
                     value = quote(value)
                 }
             }
-            printf( "  %s: %s", quote(key), value )
+            printf( "%s\n:\n%s\n", quote(key), value )
         } else if (var ~ /:/) {
             idx = index(var, ":")
             key = substr(var, 1, idx-1)
             value = substr(var, idx+1)
 
-            printf( "  %s: %s", quote(key), quote(value) )
+            printf( "%s\n:\n%s\n", quote(key), quote(value) )
         } else {
-            printf( "  %s: %s", quote(var), quote(env[var]) )
+            printf( "%s\n:\n%s\n", quote(var), quote(env[var]) )
         }
     }
     printf "\n}"

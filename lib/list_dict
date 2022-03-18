@@ -13,17 +13,27 @@ ___x_cmd_jo_list(){
     local s=
     while [ $# -gt 0 ]; do
         case "$1" in
-            true|false|null)    s="$s,$1"   ;;
-            \[*)                 s="$s,$1";;
-            \{*)                s="$s,$1";;
+            true|false|null)    s="$s,
+$1
+";;
+            \[*)                s="$s,
+$1
+";;
+            \{*)                s="$s,
+$1
+";;
             # =\"*)             s="$2,${1:1}"   ;;
             *)
                 if [[ "$1" =~ ^[+-]?[0-9]+(.[0-9]+)*([eE][0-9]+(.[0-9]+))*$ ]];
-                then            s="$s,$1" ;
+                then            s="$s,
+$1
+" ;
                 else
                     ___="$1"
                     ___x_cmd_jo_escape___
-                    s="$s,${___}" # s="$s,\"${1//\"/\\\"}\"" ;
+                    s="$s,
+${___}
+" # s="$s,\"${1//\"/\\\"}\"" ;
                 fi
                 ;;
         esac
@@ -59,13 +69,13 @@ ___x_cmd_jo_dict(){
 
             case "$___" in
                 true|false|null|\{*\}|\[*\]|\"*)
-                    printf '  %s: %s' "$key" "$___" ;;
+                    printf '%s\n:\n%s\n' "$key" "$___" ;;
                 *)
                     if [[ "$___" =~ ^[+-]?[0-9]+(.[0-9]+)*([eE][0-9]+(.[0-9]+))*$ ]]; then
-                        printf '  %s: %s' "$key" "$___"
+                        printf '%s\n:\n%s\n' "$key" "$___"
                     else
                         ___x_cmd_jo_escape___
-                        printf '  %s: %s' "$key" "$___"
+                        printf '%s\n:\n%s\n' "$key" "$___"
                     fi
             esac
             continue
@@ -77,7 +87,7 @@ ___x_cmd_jo_dict(){
             key="$___"
             ___=${i#*\:}
             ___x_cmd_jo_escape___
-            printf '  %s: %s' "$key" "$___"
+            printf '%s\n:\n%s\n' "$key" "$___"
             continue
         fi
 
@@ -86,7 +96,7 @@ ___x_cmd_jo_dict(){
         eval "___=\"\$$i\""
         ___x_cmd_jo_escape___
 
-        printf '  %s: %s' "$key" "$___"
+        printf '%s\n:\n%s\n' "$key" "$___"
     done
 
     printf "\n}"
