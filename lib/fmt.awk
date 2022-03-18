@@ -5,13 +5,9 @@ function jiter_print( obj, item ){
     if (item ~ /^:$/) {
         printf( "%s ", item )
         JITER_LAST_KP = item
-        return
-    }
-    if (item ~ /^,$/) {
+    } else if (item ~ /^,$/) {
         printf( "%s\n", item )
-        return
-    }
-    if (item ~ /^[tfn"0-9+-]/)  #"        # (item !~ /^[\{\}\[\]]$/)
+    } else if (item ~ /^[tfn"0-9+-]/)  #"        # (item !~ /^[\{\}\[\]]$/)
     {
         if ( JITER_LAST_KP != "" ) {
             printf( "%s", item )
@@ -43,13 +39,9 @@ function jiter_print_color( obj, item ){
     if (item ~ /^:$/) {
         printf( "%s ", item )
         JITER_LAST_KP = item
-        return
-    }
-    if (item ~ /^,$/) {
+    } else if (item ~ /^,$/) {
         printf( "%s\n", item )
-        return
-    }
-    if (item ~ /^[tfn"0-9+-]/)  #"        # (item !~ /^[\{\}\[\]]$/)
+    } else if (item ~ /^[tfn"0-9+-]/)  #"        # (item !~ /^[\{\}\[\]]$/)
     {
         if ( JITER_LAST_KP != "" ) {
             printf( "%s", item )
