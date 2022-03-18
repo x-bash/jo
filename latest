@@ -82,9 +82,91 @@ fi
 
 # x jo dict abc cde fge abc=123 aaa=$abc
 # x jo "{ abc: $abc, cde: $cde, fge: $fge }"
-___x_cmd_jo_dict(){
-    :
+
+
+if [ -n "${BASH_VERSION}${ZSH_VERSION}${KSH_VERSION}" ]; then
+
+# shellcheck disable=SC3010,SC3060,SC3003
+___x_cmd_jo_escape___(){
+    ___="${___//$'\\'/\\}"
+    ___="${___//$'\n'/\\n}"
+    ___="${___//$'\r'/\\n}"
+    ___="${___//$'\t'/\\t}"
+    ___="${___//$'\b'/\\b}"
+    ___="${___//\"/\\\"}"
+    printf "\"%s\""  "$___"
 }
+
+# shellcheck disable=SC3010,SC3060
+___x_cmd_jo_dict(){
+    printf "{\n"
+
+    local key
+    local value
+    local first=0
+
+    local i
+
+    local ____
+    for i in "$@"; do
+        if [ "$first" -eq 0 ]; then
+            first=1
+        else
+            printf ',\n'
+        fi
+
+        ___=${i%%=*}
+        if [ "$___" != "$i" ]; then
+            ___x_cmd_jo_escape___
+            key="$___"
+            ___=${i#*=}
+
+            case "$___" in
+                true|false|null|\{*\}|\[*\]|\"*)
+                    printf '  %s: %s' "$key" "$___" ;;
+                *)
+                    if [[ "$value" =~ ^[+-]?[0-9]+(.[0-9]+)*([eE][0-9]+(.[0-9]+))*$ ]]; then
+                        printf '  %s: %s' "$key" "$___"
+                    else
+                        ___x_cmd_jo_escape___
+                        printf '  %s: %s' "$key" "$___"
+                    fi
+            esac
+            continue
+        fi
+
+        ___=${i%%\:*}
+        if [ "$___" != "$i" ]; then
+            ___x_cmd_jo_escape___
+            key="$___"
+            ___=${i#*\:}
+            ___x_cmd_jo_escape___
+            printf '  %s: %s' "$key" "$value"
+            continue
+        fi
+
+        ___x_cmd_jo_escape___
+        key="$___"
+        eval "___=\"\$$key\""
+        ___x_cmd_jo_escape___
+
+        printf '  %s: %s' "$key" "$value"
+    done
+}
+else
+
+___x_cmd_jo_dict(){
+    local i
+    for i in "$@"; do
+        case "$i" in
+            *=*)            ;;
+            *:*)            ;;
+            *)              ;;
+        esac
+    done
+}
+
+fi
 
 # EndSection
 
