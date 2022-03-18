@@ -10,24 +10,14 @@ ___x_cmd_jo(){
 
     local op="${1:?Provide op}"
     case "$op" in
-        list)
-            return
-            ;;
-        dict)
-            return
-            ;;
-        -)
-            command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk"
-            return
-            ;;
+        list)   ___x_cmd_jo_list "$@" ;;
+        dict)   ___x_cmd_jo_dict "$@" ;;
+        -)                                      command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk" ;;
+        *)      local IFS; printf "%s" "$*" |   command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk"
     esac
-
-    local IFS
-    printf "%s" "$*" | command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk"
 }
 
 # time ___x_cmd_jo_list 1 2 \"true\" $( ___x_cmd_jo_list 1 2 3)
-
 if [ -n "${BASH_VERSION}${ZSH_VERSION}${KSH_VERSION}" ]; then
     . "$___X_CMD_ROOT/jo/lib/list_dict"     # xrc jo/lib/list_dict
 else
