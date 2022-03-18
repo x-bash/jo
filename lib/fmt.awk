@@ -109,8 +109,8 @@ BEGIN{
 
 {
     if (COLOR != "") {
-        jiter_print( _, $0 )
-        # jiter_print_color( _, $0 )
+        # jiter_print( _, $0 )
+        jiter_print_color( _, $0 )
     } else {
         jiter_print( _, $0 )
     }
