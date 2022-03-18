@@ -36,22 +36,34 @@ function jiter_print( obj, item ){
 # Section: color
 
 BEGIN {
-    JO_TH_COLON     = ":"
-    JO_TH_COMMA     = ","
-    JO_TH_LBOX      = "["
-    JO_TH_RBOX      = "]"
-    JO_TH_LCURLY    = "{"
-    JO_TH_RCURLY    = "}"
+    TH_END          = "\033[0m"
 
-    JO_TH_TRUE      = "true"
-    JO_TH_FALSE     = "false"
-    JO_TH_NULL      = "null"
+    TH_RED          = "\033[31m"
+    TH_YELLOW       = "\033[31m"
+    TH_BLUE         = "\033[31m"
+
+    TH_GREEN        = ""
+
+    TH_BOLD         = "\033[1m"
+    TH_DIM          = ""
+
+
+    JO_TH_COLON     = ":"
+    JO_TH_COMMA     = TH_DIM "," TH_END
+    JO_TH_LBOX      = TH_BOLD "[" TH_END
+    JO_TH_RBOX      = TH_BOLD "]" TH_END
+    JO_TH_LCURLY    = TH_BOLD "{" TH_END
+    JO_TH_RCURLY    = TH_BOLD "}" TH_END
+
+    JO_TH_TRUE      = TH_BLUE "true" TH_END
+    JO_TH_FALSE     = TH_RED "false" TH_END
+    JO_TH_NULL      = TH_DIM "null" TH_END
 
     JO_TH_LNUMBER   = ""
     JO_TH_RNUMBER   = ""
 
-    JO_TH_LSTRING   = ""
-    JO_TH_RSTRING   = ""
+    JO_TH_LSTRING   = TH_GREEN
+    JO_TH_RSTRING   = TH_END
 }
 
 function jiter_print_colorize_value( value ){
