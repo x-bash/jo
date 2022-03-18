@@ -54,7 +54,7 @@ BEGIN {
     JO_TH_RSTRING   = ""
 }
 
-function jiter_colorize_value( value ){
+function jiter_print_colorize_value( value ){
     if (value == "true")        return JO_TH_TRUE
     if (value == "false")       return JO_TH_FALSe
     if (value == "null")        return JO_TH_NULL
@@ -72,10 +72,10 @@ function jiter_print_color( obj, item ){
     } else if (item ~ /^[tfn"0-9+-]/)  #"        # (item !~ /^[\{\}\[\]]$/)
     {
         if ( JITER_LAST_KP != "" ) {
-            printf( "%s", jiter_colorize_value(item) )
+            printf( "%s", jiter_print_colorize_value(item) )
             JITER_LAST_KP = ""
         } else {
-            printf( "%s%s", JITER_PRINT_INDENT, jiter_colorize_value(item) )
+            printf( "%s%s", JITER_PRINT_INDENT, jiter_print_colorize_value(item) )
         }
     } else if (item ~ /^[\[\{]$/) { # }
         if (item == "[")    printf("%s\n", JO_TH_LBOX)
