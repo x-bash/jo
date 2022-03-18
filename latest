@@ -26,7 +26,6 @@ ___x_cmd_jo(){
     printf "%s" "$*" | command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk"
 }
 
-# x jo list 1 2 3
 # time ___x_cmd_jo_list 1 2 \"true\" $( ___x_cmd_jo_list 1 2 3)
 
 if [ -n "${BASH_VERSION}${ZSH_VERSION}${KSH_VERSION}" ]; then
