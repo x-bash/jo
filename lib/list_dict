@@ -99,6 +99,6 @@ ___x_cmd_jo_dict(){
         printf '%s\n:\n%s\n' "$key" "$___"
     done
 
-    printf "\n}"
+    printf "}\n"
 }
 

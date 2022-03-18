@@ -20,10 +20,11 @@ function quote( a ){
             res = quote(res)
         }
     }
-    s= (s == "") ? res : ( s "," res )
+    gsub(",", "\n,\n", res)
+    s= (s == "") ? res : ( s "\n,\n" res )
 }
 END{
-    print "[" s "]"
+    print "[\n" s "\n]"
 }
 '
 }
@@ -100,7 +101,7 @@ END {
             printf( "%s\n:\n%s\n", quote(var), quote(env[var]) )
         }
     }
-    printf "\n}"
+    printf "}\n"
 }
 '
 
