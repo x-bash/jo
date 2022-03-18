@@ -14,7 +14,7 @@ ___x_cmd_jo_list(){
     while [ $# -gt 0 ]; do
         case "$1" in
             true|false|null)    s="$s,$1"   ;;
-            [*)                 s="$s,$1";;
+            \[*)                 s="$s,$1";;
             \{*)                s="$s,$1";;
             # =\"*)             s="$2,${1:1}"   ;;
             *)

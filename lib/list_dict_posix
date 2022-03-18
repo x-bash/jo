@@ -38,11 +38,11 @@ ___x_cmd_jo_dict(){
     RS="$(printf "\001")"
 
     {
-        printf "%s" "$*"
+        printf "%s${RS}" "$*"
         for i in "$@"; do
             case "$i" in
-                *=*)            ;;
-                *:*)            ;;
+                *=*)          ;;
+                *:*)          ;;
                 *)
                     printf "%s${RS}" "$i"
                     eval 'printf "%s${RS}"' " \"\$$i\""
@@ -59,13 +59,13 @@ function quote( a ){
     gsub(/\v/, "\\v", a)
     return "\"" a "\""
 }
-
 NR==1{
     gsub(/\n/, "\003", $0)
     argl = split($0, argv, "\002")
 }
 
 NR>1{
+
     if (NR%2 == 0) {
         arg = $0
     } else {
@@ -74,30 +74,33 @@ NR>1{
 }
 
 END {
+    printf "{\n"
     for (i=1; i<=argl; ++i) {
+        if (i != 1) printf ",\n"
         var = argv[ i ]
         gsub("\003", "\n", $0)
         if (var ~ /=/) {
-            idx = index("=", var)
-            key = substr(var, 1, index-1)
-            value = substr(var, index+1)
+            idx = index(var, "=")
+            key = substr(var, 1, idx-1)
+            value = substr(var, idx+1)
 
             if (value !~ /(^{.*}$)|(^\[.*\]$)/) {
                 if(value !~ /^([+-]?[0-9]+(.[0-9]+)*([eE][0-9]+(.[0-9]+))*)|(true)|(false)|(null)$/) {
                     value = quote(value)
                 }
             }
-            printf( "%s: %s", quote(key), value )
+            printf( "  %s: %s", quote(key), value )
         } else if (var ~ /:/) {
-            idx = index(":", var)
-            key = substr(var, 1, index-1)
-            value = substr(var, index+1)
+            idx = index(var, ":")
+            key = substr(var, 1, idx-1)
+            value = substr(var, idx+1)
 
-            printf( "%s: %s", quote(key), quote(value) )
+            printf( "  %s: %s", quote(key), quote(value) )
         } else {
-            printf( "%s: %s", quote(var), quote(env[var]) )
+            printf( "  %s: %s", quote(var), quote(env[var]) )
         }
     }
+    printf "\n}"
 }
 '
 
