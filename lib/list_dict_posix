@@ -3,12 +3,21 @@ ___x_cmd_jo_list(){
     local IFS
     IFS="$(printf "\001")"
     printf "%s" "$*" | awk -v RS="$IFS" '
+function quote( a ){
+    gsub(/"/, "\\\"", a)
+    gsub(/\n/, "\\n", a)
+    gsub(/\r/, "\\r", a)
+    gsub(/\b/, "\\b", a)
+    gsub(/\t/, "\\t", a)
+    gsub(/\v/, "\\v", a)
+    return "\"" a "\""
+}
+
 {
     res = $0
     if (res !~ /(^{.*}$)|(^\[.*\]$)/) {
         if(res !~ /^([+-]?[0-9]+(.[0-9]+)*([eE][0-9]+(.[0-9]+))*)|(true)|(false)|(null)$/) {
-            gsub("\"","\\\"", res)
-            res = "\"" res "\""
+            res = quote(res)
         }
     }
     s= (s == "") ? res : ( s "," res )
@@ -41,6 +50,16 @@ ___x_cmd_jo_dict(){
             esac
         done
     } | awk -v RS="$RS" '
+function quote( a ){
+    gsub(/"/, "\\\"", a)
+    gsub(/\n/, "\\n", a)
+    gsub(/\r/, "\\r", a)
+    gsub(/\b/, "\\b", a)
+    gsub(/\t/, "\\t", a)
+    gsub(/\v/, "\\v", a)
+    return "\"" a "\""
+}
+
 NR==1{
     gsub(/\n/, "\003", $0)
     argl = split($0, argv, "\002")
@@ -59,9 +78,22 @@ END {
         var = argv[ i ]
         gsub("\003", "\n", $0)
         if (var ~ /=/) {
+            idx = index("=", var)
+            key = substr(var, 1, index-1)
+            value = substr(var, index+1)
 
+            if (value !~ /(^{.*}$)|(^\[.*\]$)/) {
+                if(value !~ /^([+-]?[0-9]+(.[0-9]+)*([eE][0-9]+(.[0-9]+))*)|(true)|(false)|(null)$/) {
+                    value = quote(value)
+                }
+            }
+            printf( "%s: %s", quote(key), value )
         } else if (var ~ /:/) {
+            idx = index(":", var)
+            key = substr(var, 1, index-1)
+            value = substr(var, index+1)
 
+            printf( "%s: %s", quote(key), quote(value) )
         } else {
             printf( "%s: %s", quote(var), quote(env[var]) )
         }
