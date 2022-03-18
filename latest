@@ -1,27 +1,26 @@
 # Author:       Li Junhao           l@x-cmd.com         # xrc
 # shellcheck shell=sh disable=SC2039,SC3043
 
-___X_CMD_JO_AWK="$___X_CMD_ROOT/awk/lib/jo.awk"
-
+___x_cmd_jo_awk(){  command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk";    }
 ___x_cmd_jo(){
     if [ ! -t 1 ]; then
-        command awk -f "$___X_CMD_JO_AWK"
+        ___x_cmd_jo_awk
+        return
     fi
 
-    local op="${1:?Provide op}"
-    case "$op" in
-        list)   ___x_cmd_jo_list "$@" ;;
-        dict)   ___x_cmd_jo_dict "$@" ;;
-        -)                                      command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk" ;;
-        *)      local IFS; printf "%s" "$*" |   command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk"
+    case "${1:?Provide op}" in
+        list)   shift; ___x_cmd_jo_list "$@" ;;
+        dict)   shift; ___x_cmd_jo_dict "$@" ;;
+        -)                                      ___x_cmd_jo_awk ;;
+        *)      local IFS; printf "%s" "$*" |   ___x_cmd_jo_awk
     esac
 }
 
 # time ___x_cmd_jo_list 1 2 \"true\" $( ___x_cmd_jo_list 1 2 3)
 if [ -n "${BASH_VERSION}${ZSH_VERSION}${KSH_VERSION}" ]; then
-    . "$___X_CMD_ROOT/jo/lib/list_dict"     # xrc jo/lib/list_dict
+    . "$___X_CMD_ROOT/jo/lib/list_dict"             # xrc jo/lib/list_dict
 else
-    . "$___X_CMD_ROOT/jo/lib/list_dict"     # xrc jo/lib/list_dict_posix
+    . "$___X_CMD_ROOT/jo/lib/list_dict_posix"       # xrc jo/lib/list_dict_posix
 fi
 
 xrc setmain ___x_cmd_jo
