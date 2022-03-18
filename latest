@@ -1,6 +1,5 @@
-# shellcheck shell=sh disable=SC2039,SC3043 # xrc
-
-# author:       Li Junhao           l@x-cmd.com
+# Author:       Li Junhao           l@x-cmd.com         # xrc
+# shellcheck shell=sh disable=SC2039,SC3043
 
 ___X_CMD_JO_AWK="$___X_CMD_ROOT/awk/lib/jo.awk"
 
