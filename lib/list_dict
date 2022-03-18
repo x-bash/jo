@@ -6,7 +6,7 @@ ___x_cmd_jo_escape___(){
     ___="${___//$'\t'/\\t}"
     ___="${___//$'\b'/\\b}"
     ___="${___//\"/\\\"}"
-    printf "\"%s\""  "$___"
+    ___="\"$___\""
 }
 
 ___x_cmd_jo_list(){
@@ -33,11 +33,12 @@ ___x_cmd_jo_list(){
 }
 
 # shellcheck disable=SC3010,SC3060
+
+# jo dict abc="$abc"
 ___x_cmd_jo_dict(){
     printf "{\n"
 
     local key
-    local value
     local first=0
 
     local i
@@ -60,7 +61,7 @@ ___x_cmd_jo_dict(){
                 true|false|null|\{*\}|\[*\]|\"*)
                     printf '  %s: %s' "$key" "$___" ;;
                 *)
-                    if [[ "$value" =~ ^[+-]?[0-9]+(.[0-9]+)*([eE][0-9]+(.[0-9]+))*$ ]]; then
+                    if [[ "$___" =~ ^[+-]?[0-9]+(.[0-9]+)*([eE][0-9]+(.[0-9]+))*$ ]]; then
                         printf '  %s: %s' "$key" "$___"
                     else
                         ___x_cmd_jo_escape___
@@ -76,16 +77,18 @@ ___x_cmd_jo_dict(){
             key="$___"
             ___=${i#*\:}
             ___x_cmd_jo_escape___
-            printf '  %s: %s' "$key" "$value"
+            printf '  %s: %s' "$key" "$___"
             continue
         fi
 
         ___x_cmd_jo_escape___
         key="$___"
-        eval "___=\"\$$key\""
+        eval "___=\"\$$i\""
         ___x_cmd_jo_escape___
 
-        printf '  %s: %s' "$key" "$value"
+        printf '  %s: %s' "$key" "$___"
     done
+
+    printf "\n}"
 }
 
