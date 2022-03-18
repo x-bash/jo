@@ -29,9 +29,49 @@ ___x_cmd_jo(){
 # Section: list
 
 # x jo list 1 2 3
+# shellcheck disable=SC3010,SC3060
+if [ -n "${BASH_VERSION}${ZSH_VERSION}${KSH_VERSION}" ]; then
 ___x_cmd_jo_list(){
-    :
+    local s=
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            true|false|null)    s="$s,$1"   ;;
+            [*)                 s="$s,$1";;
+            \{*)                s="$s,$1";;
+            # =\"*)             s="$2,${1:1}"   ;;
+            *)
+                if [[ "$1" =~ ^[+-]?[0-9]+(.[0-9]+)*([eE][0-9]+(.[0-9]+))*$ ]];
+                then            s="$s,$1" ;
+                else            s="$s,\"${1//\"/\\\"}\"" ;
+                fi
+                ;;
+        esac
+        shift
+    done
+    printf "%s" "[${s#?}]"
 }
+else
+
+# Start this at one time.
+___x_cmd_jo_list(){
+    local IFS
+    IFS="$(printf "\001")"
+    printf "%s" "$*" | awk -v RS="$IFS" '
+{
+    res = $0
+    if(res !~ /^([+-]?[0-9]+(.[0-9]+)*([eE][0-9]+(.[0-9]+))*)|(true)|(false)|(null)$/) {
+        gsub("\"","\\\"", res)
+        res = "\"" res "\""
+    }
+    s= (s == "") ? res : ( s "," res )
+}
+END{
+    print "[" s "]"
+}
+'
+}
+fi
+
 
 # EndSection
 
