@@ -21,16 +21,52 @@ END{
 
 ___x_cmd_jo_dict(){
     local i
-    for i in "$@"; do
-        case "$i" in
-            *=*)            ;;
-            *:*)            ;;
-            *)              ;;
-        esac
-    done
+
+    local IFS=
+    IFS="$(printf "\002")"
+
+    local RS
+    RS="$(printf "\001")"
+
+    {
+        printf "%s" "$*"
+        for i in "$@"; do
+            case "$i" in
+                *=*)            ;;
+                *:*)            ;;
+                *)
+                    printf "%s${RS}" "$i"
+                    eval 'printf "%s${RS}"' " \"\$$i\""
+                ;;
+            esac
+        done
+    } | awk -v RS="$RS" '
+NR==1{
+    gsub(/\n/, "\003", $0)
+    argl = split($0, argv, "\002")
 }
 
+NR>1{
+    if (NR%2 == 0) {
+        arg = $0
+    } else {
+        env[ arg ] = $0
+    }
+}
 
+END {
+    for (i=1; i<=argl; ++i) {
+        var = argv[ i ]
+        gsub("\003", "\n", $0)
+        if (var ~ /=/) {
 
+        } else if (var ~ /:/) {
 
+        } else {
+            printf( "%s: %s", quote(var), quote(env[var]) )
+        }
+    }
+}
+'
 
+}
