@@ -4,13 +4,6 @@
 
 ___X_CMD_JO_AWK="$___X_CMD_ROOT/awk/lib/jo.awk"
 
-# x jo '{
-#     abc: cde,
-#     cde: eft,
-#     abc: aaa
-# }'
-
-# x jo abc cde abc
 ___x_cmd_jo(){
     if [ ! -t 1 ]; then
         command awk -f "$___X_CMD_JO_AWK"
