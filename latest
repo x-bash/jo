@@ -12,15 +12,15 @@ ___x_cmd_jo(){
     case "${1:?Provide op}" in
         list)
             shift
-            if [ ! -t 1 ]; then             ___x_cmd_jo_list "$@"
-            else                            ___x_cmd_jo_list "$@" | ___x_cmd_jo_awk_colorized
+            if [ ! -t 1 ]; then                 ___x_cmd_jo_list "$@"
+            else                                ___x_cmd_jo_list "$@" | ___x_cmd_jo_awk_colorized
             fi
             ;;
         dict)
             shift
             ___x_cmd_jo_dict "$@"
-            if [ ! -t 1 ]; then             ___x_cmd_jo_dict "$@"
-            else                            ___x_cmd_jo_dict "$@" | ___x_cmd_jo_awk_colorized
+            if [ ! -t 1 ]; then                 ___x_cmd_jo_dict "$@"
+            else                                ___x_cmd_jo_dict "$@" | ___x_cmd_jo_awk_colorized
             fi
             ;;
         -)                                      ___x_cmd_jo_awk ;;
