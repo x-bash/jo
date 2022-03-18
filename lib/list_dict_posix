@@ -1,0 +1,36 @@
+# Start this at one time.
+___x_cmd_jo_list(){
+    local IFS
+    IFS="$(printf "\001")"
+    printf "%s" "$*" | awk -v RS="$IFS" '
+{
+    res = $0
+    if (res !~ /(^{.*}$)|(^\[.*\]$)/) {
+        if(res !~ /^([+-]?[0-9]+(.[0-9]+)*([eE][0-9]+(.[0-9]+))*)|(true)|(false)|(null)$/) {
+            gsub("\"","\\\"", res)
+            res = "\"" res "\""
+        }
+    }
+    s= (s == "") ? res : ( s "," res )
+}
+END{
+    print "[" s "]"
+}
+'
+}
+
+___x_cmd_jo_dict(){
+    local i
+    for i in "$@"; do
+        case "$i" in
+            *=*)            ;;
+            *:*)            ;;
+            *)              ;;
+        esac
+    done
+}
+
+
+
+
+
