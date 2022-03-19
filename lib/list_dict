@@ -94,8 +94,12 @@ ___x_cmd_jo_dict(){
         ___x_cmd_jo_escape___
         key="$___"
         eval "___=\"\$$i\""
-        ___x_cmd_jo_escape___
 
+        case "$___" in
+                true|false|null) ;;
+                *)    ___x_cmd_jo_escape___      ;;
+        esac
+        
         printf '%s\n:\n%s\n' "$key" "$___"
     done
 
