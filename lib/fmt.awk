@@ -6,17 +6,12 @@ function jiter_print( obj, item ){
         printf( "%s ", item )
         JITER_LAST_KP = item
     } else if (item ~ /^,$/) {
-        printf( "%s\n", item )
+        printf( "%s\n%s", item ,JITER_PRINT_INDENT)
     } else if (item ~ /^[tfn"0-9+-]/)  #"        # (item !~ /^[\{\}\[\]]$/)
     {
-        if ( JITER_LAST_KP != "" ) {
-            printf( "%s", item )
-            JITER_LAST_KP = ""
-        } else {
-            printf( "%s%s", JITER_PRINT_INDENT, item )
-        }
+        if ( JITER_LAST_KP != "" ) JITER_LAST_KP = ""
+        printf( "%s", item )
     } else if (item ~ /^[\[\{]$/) { # }
-        printf("%s\n",item)
         JITER_LAST_KP = ""
         JITER_LEVEL ++
         obj[ JITER_LEVEL T_LEN T_LEN ] = JITER_PRINT_INDENT
@@ -24,6 +19,7 @@ function jiter_print( obj, item ){
 
         JITER_PRINT_INDENT = JITER_PRINT_INDENT INDENT
         JITER_STATE = item
+        printf("%s\n%s",item, JITER_PRINT_INDENT)
     } else {
         JITER_PRINT_INDENT = obj[ JITER_LEVEL T_LEN T_LEN ]
         JITER_STATE = obj[ JITER_LEVEL ]
@@ -80,18 +76,12 @@ function jiter_print_color( obj, item ){
         printf( "%s ",  JO_TH_COLON )
         JITER_LAST_KP = item
     } else if (item ~ /^,$/) {
-        printf( "%s\n", JO_TH_COMMA )
+        printf( "%s\n%s", JO_TH_COMMA, JITER_PRINT_INDENT )
     } else if (item ~ /^[tfn"0-9+-]/)  #"        # (item !~ /^[\{\}\[\]]$/)
     {
-        if ( JITER_LAST_KP != "" ) {
-            printf( "%s", jiter_print_colorize_value(item) )
-            JITER_LAST_KP = ""
-        } else {
-            printf( "%s%s", JITER_PRINT_INDENT, jiter_print_colorize_value(item) )
-        }
+        if ( JITER_LAST_KP != "" ) JITER_LAST_KP = ""
+        printf( "%s", jiter_print_colorize_value(item) )
     } else if (item ~ /^[\[\{]$/) { # }
-        if (item == "[")    printf("%s\n", JO_TH_LBOX)
-        else                printf("%s\n", JO_TH_LCURLY)
         JITER_LAST_KP = ""
         JITER_LEVEL ++
         obj[ JITER_LEVEL T_LEN T_LEN ] = JITER_PRINT_INDENT
@@ -99,6 +89,8 @@ function jiter_print_color( obj, item ){
 
         JITER_PRINT_INDENT = JITER_PRINT_INDENT INDENT
         JITER_STATE = item
+        if (item == "[")    printf("%s\n%s", JO_TH_LBOX, JITER_PRINT_INDENT)
+        else                printf("%s\n%s", JO_TH_LCURLY, JITER_PRINT_INDENT)
     } else {
         JITER_PRINT_INDENT = obj[ JITER_LEVEL T_LEN T_LEN ]
         JITER_STATE = obj[ JITER_LEVEL ]
