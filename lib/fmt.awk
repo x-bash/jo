@@ -64,7 +64,7 @@ BEGIN {
 
 function jiter_print_colorize_value( value ){
     if (value == "true")        return JO_TH_TRUE
-    if (value == "false")       return JO_TH_FALSe
+    if (value == "false")       return JO_TH_FALSE
     if (value == "null")        return JO_TH_NULL
     if (value ~ /^"/)           return JO_TH_LSTRING value JO_TH_RSTRING
     return JO_TH_LNUMBER value JO_TH_RNUMBER

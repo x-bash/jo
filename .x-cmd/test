@@ -16,7 +16,7 @@ test_dict(){
     local abc=123
     local cde="test"
     local efg="frue"
-    ___x_cmd_jo dict a=12 b:12 b:cscs  abc cde efg e:null
+    ___x_cmd_jo dict a=12 b:12 b:cscs  abc cde efg e1:null e2=false e3=true
 }
 
 case "$1" in
