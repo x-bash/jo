@@ -38,10 +38,10 @@ BEGIN {
     TH_YELLOW       = "\033[31m"
     TH_BLUE         = "\033[31m"
 
-    TH_GREEN        = ""
+    TH_GREEN        = "\033[32m"
 
     TH_BOLD         = "\033[1m"
-    TH_DIM          = ""
+    TH_DIM          = "\033[2m"
 
 
     JO_TH_COLON     = ":"
@@ -55,8 +55,8 @@ BEGIN {
     JO_TH_FALSE     = TH_RED "false" TH_END
     JO_TH_NULL      = TH_DIM "null" TH_END
 
-    JO_TH_LNUMBER   = ""
-    JO_TH_RNUMBER   = ""
+    JO_TH_LNUMBER   = TH_YELLOW
+    JO_TH_RNUMBER   = TH_END
 
     JO_TH_LSTRING   = TH_GREEN
     JO_TH_RSTRING   = TH_END
