@@ -98,7 +98,9 @@ END {
 
             printf( "%s\n:\n%s\n", quote(key), quote(value) )
         } else {
-            printf( "%s\n:\n%s\n", quote(var), quote(env[var]) )
+            value = env[var]
+            if (value ~ /^(true)|(false)|(null)$/) printf( "%s\n:\n%s\n", quote(var), value )
+            else printf( "%s\n:\n%s\n", quote(var), quote(value) )
         }
     }
     printf "}\n"
