@@ -42,15 +42,19 @@ function jiter_print_color( obj, item ){
     if (item ~ /^$/)    return
     if (item ~ /^:$/) {
         printf( "%s ",  JO_TH_COLON )
-        JITER_LAST_KP = item
+        JITER_LAST_IS_VALUE = 1
     } else if (item ~ /^,$/) {
         printf( "%s\n%s", JO_TH_COMMA, JITER_PRINT_INDENT )
     } else if (item ~ /^[tfn"0-9+-]/)  #"        # (item !~ /^[\{\}\[\]]$/)
     {
-        if ( JITER_LAST_KP != "" ) JITER_LAST_KP = ""
-        printf( "%s", jiter_print_colorize_value(item) )
+        if (JITER_LAST_IS_VALUE == 0) {
+            printf( "%s", item )
+        } else {
+            JITER_LAST_IS_VALUE = 0
+            printf( "%s", jiter_print_colorize_value(item) )
+        }
     } else if (item ~ /^[\[\{]$/) { # }
-        JITER_LAST_KP = ""
+        JITER_LAST_IS_VALUE = 0
         JITER_LEVEL ++
         obj[ JITER_LEVEL T_INDENT ] = JITER_PRINT_INDENT
         obj[ JITER_LEVEL ] = JITER_STATE

@@ -27,7 +27,7 @@ ___x_cmd_jo_wrap(){
     if [ ! -t 1 ]; then
         "$@"
     else
-        "$@" | COLOR=1 ___x_cmd_jo_fmt
+        "$@" | ___x_cmd_jo_color
     fi
 }
 
@@ -35,8 +35,11 @@ ___x_cmd_jo_wrap(){
 
 # arg: indent
 ___x_cmd_jo_fmt(){
-    command awk -v COLOR="$COLOR" -v INDENT="${INDENT:-2}}" \
-        -f "$___X_CMD_ROOT/jo/lib/fmt.awk"
+    command awk -v INDENT="${INDENT:-2}}" -f "$___X_CMD_ROOT/jo/lib/fmt.awk"
+}
+
+___x_cmd_jo_color(){
+    command awk -v INDENT="${INDENT:-2}}" -f "$___X_CMD_ROOT/jo/lib/color.awk"
 }
 
 ___x_cmd_json_data(){
