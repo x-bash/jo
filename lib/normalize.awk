@@ -23,7 +23,7 @@ function tokenized( text ){
     return text
 }
 
-function quote_if_not( text ){
+function quote_key( text ){
     if (text ~ /^".+"$/) {
         return text
     }
@@ -39,23 +39,23 @@ function quote_if_not( text ){
     return "\"" text "\""
 }
 
-function quote_value_if_not( text ){
-    if (text ~ /^(\{|\[|true|false|null)$/)       return text
-    if (text ~ "^" RE_NUM "$")              return text
-    return quote_if_not(text)
+function quote_value( text ){
+    if (text ~ /^(\{|\[|true|false|null)$/)     return text
+    if (text ~ "^" RE_NUM "$")                  return text
+    return quote_key(text)
 }
 
 function jinormal_printkv( item ) {
     if ( JITER_LAST_KP != "" ) {
         # print "JITER_CURLEN:" JITER_CURLEN
         if (JITER_CURLEN > 1)  print ","
-        print quote_if_not(JITER_LAST_KP) "\n:\n" quote_value_if_not(item)
+        print quote_key(JITER_LAST_KP) "\n:\n" quote_value(item)
         JITER_LAST_KP = ""
     } else {
         JITER_CURLEN = JITER_CURLEN + 1
         if (JITER_STATE != T_DICT) {
             if (JITER_CURLEN > 1)  print ","
-            print quote_value_if_not(item)
+            print quote_value(item)
         } else {
             JITER_LAST_KP = item
         }
@@ -64,9 +64,8 @@ function jinormal_printkv( item ) {
 
 BEGIN{
     JITER_LEVEL = 0
-    JITER_LEVEL_STEP = 4
-    JITER_LEVEL_LEN = 1
-    JITER_LEVEL_STATE = 2
+    JITER_LEVEL_STEP = 2
+    JITER_LEVEL_STATE = 1
 }
 
 function jinormal( obj, item ){
@@ -75,7 +74,7 @@ function jinormal( obj, item ){
     if (item ~ /^[\[\{]$/) {
         jinormal_printkv( item )
         JITER_CURLEN = JITER_CURLEN + 1
-        obj[ JITER_LEVEL + JITER_LEVEL_LEN ] = JITER_CURLEN
+        obj[ JITER_LEVEL ] = JITER_CURLEN
         obj[ JITER_LEVEL + JITER_LEVEL_STATE ] = JITER_STATE
         JITER_LEVEL += JITER_LEVEL_STEP
         JITER_STATE = item
@@ -83,9 +82,8 @@ function jinormal( obj, item ){
     } else if (item ~ /^[\]\}]$/) {
         print item
         JITER_LEVEL -= JITER_LEVEL_STEP
-        JITER_FA_KEYPATH = obj[ JITER_LEVEL ]
+        JITER_CURLEN = obj[ JITER_LEVEL ]
         JITER_STATE = obj[ JITER_LEVEL + JITER_LEVEL_STATE ]
-        JITER_CURLEN = obj[ JITER_LEVEL + JITER_LEVEL_LEN ]
     } else {
         jinormal_printkv( item )
     }
