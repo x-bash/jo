@@ -23,7 +23,11 @@ ___x_cmd_jo(){
     esac
 }
 
-___x_cmd_jo_awk(){  command awk -f "$___X_CMD_ROOT/awk/lib/re.awk" -f "$___X_CMD_ROOT/awk/lib/jo.awk";    }
+___x_cmd_jo_awk(){
+    command awk \
+        -f "$___X_CMD_ROOT/awk/lib/re.awk"  \
+        -f "$___X_CMD_ROOT/jo/lib/regulate.awk"
+}
 
 ___x_cmd_jo_wrap(){
     if [ ! -t 1 ]; then
