@@ -8,12 +8,8 @@ BEGIN {
     TH_BLUE         = "\033[1;34m"
     TH_KEY          = "\033[32m"
 
-
-
-
     TH_BOLD         = "\033[1m"
     TH_DIM          = "\033[2m"
-
 
     JO_TH_COLON     = ":"
     JO_TH_COMMA     = TH_DIM "," TH_END
