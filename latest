@@ -26,7 +26,7 @@ ___x_cmd_jo(){
 ___x_cmd_jo_awk(){
     command awk \
         -f "$___X_CMD_ROOT/awk/lib/re.awk"  \
-        -f "$___X_CMD_ROOT/jo/lib/regulate.awk"
+        -f "$___X_CMD_ROOT/jo/lib/normalize.awk"
 }
 
 ___x_cmd_jo_wrap(){
