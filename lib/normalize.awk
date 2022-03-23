@@ -62,22 +62,30 @@ function jinormal_printkv( item ) {
     }
 }
 
+BEGIN{
+    JITER_LEVEL = 0
+    JITER_LEVEL_STEP = 4
+    JITER_LEVEL_LEN = 1
+    JITER_LEVEL_STATE = 2
+}
+
 function jinormal( obj, item ){
     if (item == "") return
     if (item ~ /^[,:]?$/) return
     if (item ~ /^[\[\{]$/) {
         jinormal_printkv( item )
         JITER_CURLEN = JITER_CURLEN + 1
-        obj[ JITER_LEVEL "LEN" ] = JITER_CURLEN
-        obj[ JITER_LEVEL "STATE" ] = JITER_STATE
-        JITER_LEVEL ++
+        obj[ JITER_LEVEL + JITER_LEVEL_LEN ] = JITER_CURLEN
+        obj[ JITER_LEVEL + JITER_LEVEL_STATE ] = JITER_STATE
+        JITER_LEVEL += JITER_LEVEL_STEP
         JITER_STATE = item
         JITER_CURLEN = 0
     } else if (item ~ /^[\]\}]$/) {
         print item
-        JITER_FA_KEYPATH = obj[ --JITER_LEVEL ]
-        JITER_STATE = obj[ JITER_LEVEL "STATE" ]
-        JITER_CURLEN = obj[ JITER_LEVEL "LEN" ]
+        JITER_LEVEL -= JITER_LEVEL_STEP
+        JITER_FA_KEYPATH = obj[ JITER_LEVEL ]
+        JITER_STATE = obj[ JITER_LEVEL + JITER_LEVEL_STATE ]
+        JITER_CURLEN = obj[ JITER_LEVEL + JITER_LEVEL_LEN ]
     } else {
         jinormal_printkv( item )
     }
