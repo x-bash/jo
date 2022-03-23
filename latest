@@ -7,6 +7,8 @@ ___x_cmd_jo(){
         fmt)        if [ -t 1 ]; then       COLOR=1 ___x_cmd_jo_fmt "$@"
                     else                            ___x_cmd_jo_fmt "$@"
                     fi ;;
+        v|valid)    ;;
+        u|uniq)     ;;
         color)                              COLOR=1 ___x_cmd_jo_fmt "$@" ;;
         list|\[)    shift;                          ___x_cmd_jo_wrap ___x_cmd_jo_list "$@" ;;
         dict|\{)    shift;                          ___x_cmd_jo_wrap ___x_cmd_jo_dict "$@" ;;
