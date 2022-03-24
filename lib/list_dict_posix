@@ -21,7 +21,7 @@ function quote( a ){
     if (res ~ /^:/) {
         res = quote(substr(res,2))
     } else if (res !~ /(^{.*}$)|(^\[.*\]$)/) {
-        if(res !~ /^([-+]?(0|[1-9][0-9]*)([.][0-9]+)?([eE][+-]?[0-9]+)?)|(true)|(false)|(null)$/) {
+        if (res !~ /^([-+]?(0|[1-9][0-9]*)([.][0-9]+)?([eE][+-]?[0-9]+)?)|(true)|(false)|(null)$/) {
             res = quote(res)
         }
     }
