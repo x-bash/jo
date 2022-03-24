@@ -33,27 +33,27 @@ END{
 }
 
 ___x_cmd_jo_dict(){
-    local i
+    local ___arg
 
     local IFS=
     IFS="$(printf "\002")"
 
-    local RS
-    RS="$(printf "\001")"
+    local ___RS
+    ___RS="$(printf "\001")"
 
     {
-        printf "%s${RS}" "$*"
-        for i in "$@"; do
-            case "$i" in
+        printf "%s${___RS}" "$*"
+        for ___arg in "$@"; do
+            case "$___arg" in
                 *=*)          ;;
                 *:*)          ;;
                 *)
-                    printf "%s${RS}" "$i"
-                    eval 'printf "%s${RS}"' " \"\$$i\""
+                    printf "%s${___RS}" "$___arg"
+                    eval 'printf "%s${___RS}"' " \"\$$___arg\""
                 ;;
             esac
         done
-    } | awk -v RS="$RS" '
+    } | awk -v RS="$___RS" '
 function quote( a ){
     gsub(/"/, "\\\"", a)
     gsub(/\n/, "\\n", a)
