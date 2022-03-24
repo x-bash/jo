@@ -1,4 +1,7 @@
 # Start this at one time.
+
+# jo list '"true"' '"false"'
+# jo list /true/ /false/
 ___x_cmd_jo_list(){
     local IFS
     IFS="$(printf "\001")"
