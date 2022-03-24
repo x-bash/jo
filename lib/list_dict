@@ -13,6 +13,12 @@ ___x_cmd_jo_list(){
     local s=
     while [ $# -gt 0 ]; do
         case "$1" in
+            :*)                 ___="${1#:}"
+                                ___x_cmd_jo_escape___
+                                ___x_cmd_jo_escape___
+                                s="$s,
+${___}
+";;
             true|false|null)    s="$s,
 $1
 ";;
