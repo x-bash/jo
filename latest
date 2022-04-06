@@ -2,6 +2,7 @@
 # shellcheck    shell=sh        disable=SC2039,SC3043
 
 ___x_cmd_jo(){
+    echo "ffff"
     case "${1:?Provide op}" in
         data)                                       ___x_cmd_jo_data "$@" ;;
         fmt)        if [ -t 1 ]; then       COLOR=1 ___x_cmd_jo_fmt "$@"
@@ -10,15 +11,19 @@ ___x_cmd_jo(){
         v|valid)    ;;
         u|uniq)     ;;
         color)                              COLOR=1 ___x_cmd_jo_fmt "$@" ;;
-        list|\[)    shift;                          ___x_cmd_jo_wrap ___x_cmd_jo_list "$@" ;;
-        dict|\{)    shift;                          ___x_cmd_jo_wrap ___x_cmd_jo_dict "$@" ;;
+        list)       shift;                          ___x_cmd_jo_wrap ___x_cmd_jo_list "$@" ;;
+        dict)       shift;                          ___x_cmd_jo_wrap ___x_cmd_jo_dict "$@" ;;
         -)                                          ___x_cmd_jo_wrap ___x_cmd_jo_awk ;;
 
         #   We will add some query functions and modified function here ...
         *)
-                    if [ "$#" -eq 0 ]; then         ___x_cmd_jo_wrap ___x_cmd_jo_awk
-                    else    local IFS; printf "%s" "$*" | \
-                                                    ___x_cmd_jo_wrap ___x_cmd_jo_awk
+                    echo hi ;
+
+                    if [ "$#" -eq 0 ]; then
+                        ___x_cmd_jo_wrap ___x_cmd_jo_awk
+                    else
+                        local IFS=" "; printf "%s" "$*" # | \
+                                                    # ___x_cmd_jo_wrap ___x_cmd_jo_awk
                     fi
     esac
 }
