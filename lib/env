@@ -1,0 +1,11 @@
+____x_cmd_jo_env_code(){
+    :
+}
+
+____x_cmd_jo_env(){
+    if [ -t 1 ]; then
+        eval "$(____x_cmd_jo_env_code "$@")"
+    else
+        ____x_cmd_jo_env_code "$@"
+    fi
+}
