@@ -4,7 +4,7 @@ ____x_cmd_jo_query_pat(){
     case "$1" in
         *.\*\*.)      : regex ;;
         *.\*.)        : regex ;;
-        *)            : arr ;;
+        *)            ____x_cmd_jo_query_with_eqarr "$@" ;;
     esac
 }
 

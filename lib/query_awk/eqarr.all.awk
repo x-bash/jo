@@ -22,10 +22,5 @@ INPUT==0{
 }
 
 INPUT==1{
-    if ( jiter_eqarr_parse( obj, $0, patarrl, patarr ) == false )    next
-    for (i=1; i<=patarrl; ++i) {
-        e = obj[ patarr[i] ]
-        # if (e == "") continue
-        print e
-    }
+    jiter_eqarr_print( obj, $0, patarrl, patarr )
 }
