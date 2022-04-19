@@ -4,10 +4,8 @@ cp -r ./* ~/.x-cmd/jo
 
 test_query_eqarr(){
 
-    ___x_cmd_jo_query .files_associations <<A
-cat .vscode/settings.json
-A
-
+    cat .vscode/settings.json | x jo - | ___x_cmd_jo_query 1.associations
+    # cat .vscode/settings.json | x jo - | ___x_cmd_jo_query '1."files.associations"'
 }
 
 test_query_eqarr

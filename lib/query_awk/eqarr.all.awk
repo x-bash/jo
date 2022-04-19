@@ -1,15 +1,20 @@
-function handle_argument(       e ){
+function handle_argument(argstr,       e ){
     argvl = split(argstr, argv, "\001")
 
     patstr = argv[1]
-    patarrl = split(patstr, patarr, /\./)
+
+    patarrl = split(patstr, patarr, /\./  )
+    for (j=1; j<=patarrl; ++j){
+        patarr[j] = q(patarr[j])
+    }
 
     for (i=2; i<=argvl; ++i) {
         e = argv[i]
         gsub(".", S, e)
         patarr[ i-1 ] = e
     }
-    patarrl = argvl - 1
+
+    # patarrl = argvl - 1
 }
 
 INPUT==0{
@@ -22,5 +27,5 @@ INPUT==0{
 }
 
 INPUT==1{
-    jiter_eqarr_print( obj, $0, patarrl, patarr )
+    jiter_eqarr_print( $0, patarrl, patarr, "", "\n")
 }
