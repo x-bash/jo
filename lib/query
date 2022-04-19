@@ -42,9 +42,13 @@ ____x_cmd_jo_query_with_eqarr(){
         printf "%s" "$*"
         printf "%s" "---"
         cat
-    } | awk \
-        -f "$___X_CMD_ROOT_MOD/awk/lib/default.awk" \
-        -f "$___X_CMD_ROOT_MOD/awk/lib/json.awk" \
-        -f "$___X_CMD_ROOT_MOD/awk/lib/jiter.awk" \
-        -f "$___X_CMD_ROOT_MOD/jo/lib/query_awk/eqarr.awk"
+    } | {
+        awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/eqarr.awk"
+        [ "$#" -eq 1 ] && awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/eqarr.all.awk"
+        awk \
+            -f "$___X_CMD_ROOT_MOD/awk/lib/default.awk" \
+            -f "$___X_CMD_ROOT_MOD/awk/lib/json.awk" \
+            -f "$___X_CMD_ROOT_MOD/awk/lib/jiter.awk" \
+            -f "$awkpath"
+    }
 }
