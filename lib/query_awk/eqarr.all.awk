@@ -6,7 +6,7 @@ function handle_argument(       e ){
 
     for (i=2; i<=argvl; ++i) {
         e = argv[i]
-        gsub("\.", S, e)
+        gsub(".", S, e)
         patarr[ i-1 ] = e
     }
     patarrl = argvl - 1

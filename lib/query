@@ -1,5 +1,5 @@
 
-____x_cmd_jo_query(){
+___x_cmd_jo_query(){
     ____x_cmd_jo_query_main "$@"
 }
 
