@@ -55,9 +55,9 @@ ___x_cmd_json_data(){
 
 # time ___x_cmd_jo_list 1 2 \"true\" $( ___x_cmd_jo_list 1 2 3)
 if [ -n "${BASH_VERSION}${ZSH_VERSION}${KSH_VERSION}" ]; then
-    . "$___X_CMD_ROOT/jo/lib/list_dict"             # xrc jo/lib/list_dict
+    . "$___X_CMD_ROOT_MOD/jo/lib/list_dict"             # xrc jo/lib/list_dict
 else
-    . "$___X_CMD_ROOT/jo/lib/list_dict_posix"       # xrc jo/lib/list_dict_posix
+    . "$___X_CMD_ROOT_MOD/jo/lib/list_dict_posix"       # xrc jo/lib/list_dict_posix
 fi
 
 # EndSection
