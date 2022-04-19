@@ -2,8 +2,7 @@ function handle_argument(       e ){
     argvl = split(argstr, argv, "\001")
 
     patstr = argv[1]
-
-    prefix_arrl = split(argv[1], prefix_arr, /\./)
+    prefix_arrl = split(patstr, prefix_arr, /\./)
 
     for (i=2; i<=argvl; ++i) {
         e = argv[i]
