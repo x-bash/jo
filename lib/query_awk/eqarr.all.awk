@@ -3,7 +3,7 @@ function handle_argument(argstr,       e ){
 
     patstr = argv[1]
 
-    patarrl = split(patstr, patarr, /\./  )
+    patarrl = split(patstr, patarr, /\./)
     for (j=1; j<=patarrl; ++j)  patarr[j] = q(patarr[j])
 }
 
