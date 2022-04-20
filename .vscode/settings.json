@@ -1,6 +1,6 @@
 {
     "files.defaultLanguage": "shellscript",
-    "associations": {
+    "files.associations": {
         "*.json": "json",
         "index.html": "shellscript",
         "**/*.md": "markdown",
@@ -15,9 +15,6 @@
         "*": "shellscript",
         "*install*": "shellscript",
         "LICENSE": "text"
-    },
-    "files": {
-        "associations": "aaaa"
     },
     "files.trimTrailingWhitespace": true,
     "editor.detectIndentation": true,
