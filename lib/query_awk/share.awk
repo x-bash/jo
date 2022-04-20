@@ -2,22 +2,22 @@
 # a.b\\.c.d
 # 'a."b.c".d.'"$1"
 
-function selector_normalize_arr( selector, arr,     e ){
+function selector_normalize_arr( selector, arr,     e, l ){
     gsub("\\\\", "\002", selector)
     gsub("\\.", "\003", selector)
 
-    arrl = split(selector, arr, /\./)
-    for (j=1; j<=arrl; ++j) {
+    l = split(selector, arr, /\./)
+    for (j=1; j<=l; ++j) {
         e = arr[j]
         gsub("\002", "\\\\", e)
         gsub("\003", "\\.", e)
         arr[j] = q( e )    # quote
     }
 
-    return arrl
+    return l
 }
 
-function selector_arr_join( sep, arrl, arr,     i ){
+function selector_arr_join( sep, arrl, arr,     i, _ ){
     if (arrl == 0)  return ""
     _ = arr[1]
     for (i=2; i<=arrl; ++i) _ = _ sep arr[i]
