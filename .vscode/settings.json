@@ -16,6 +16,9 @@
         "*install*": "shellscript",
         "LICENSE": "text"
     },
+    "files": {
+        "associations": "aaaa"
+    },
     "files.trimTrailingWhitespace": true,
     "editor.detectIndentation": true,
     "editor.tabSize": 4,
