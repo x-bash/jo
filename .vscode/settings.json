@@ -28,7 +28,7 @@
                 "beginRegex": "^\\s*#\\s*Section:?",
                 "endRegex": "^\\s*#\\s*EndSection",
                 "autoFold": true
-            }
+            },
         ],
         "shellscript": [
             {
