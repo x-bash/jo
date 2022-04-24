@@ -5,11 +5,11 @@ ___x_cmd_jo_query(){
 
 # TODO: for optimization
 ____x_cmd_jo_query_main(){
-    local awkpath_suffix
+    local acessor_num
     case "$#" in
         0)      x log :jo error "jo query need at least one argument and first argument"; exit 1 ;;
-        1)      awkpath_suffix="0.awk" ;;
-        *)      awkpath_suffix="n.awk";;
+        1)      acessor_num=0 ;;
+        *)      acessor_num=n ;;
     esac
 
     local selector_type
@@ -32,8 +32,8 @@ ____x_cmd_jo_query_main_inner(){
             -f "$___X_CMD_ROOT_MOD/awk/lib/json.awk" \
             -f "$___X_CMD_ROOT_MOD/awk/lib/jiter.awk" \
             -f "$P/share.awk" \
-            -f "$P/$selector_type/share.awk" \
-            -f "$P/$selector_type/$awkpath_suffix"
+            -f "$P/${selector_type}/share.awk" \
+            -f "$P/${selector_type}/${acessor_num}.awk"
 }
 
 # ____x_cmd_jo_query_with_eqarr(){
