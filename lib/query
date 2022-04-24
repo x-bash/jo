@@ -35,8 +35,13 @@ ____x_cmd_jo_query_with_eqarr(){
         printf "%s\n" "---"
         cat
     } | {
-        awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/eqarr.awk"
-        [ "$#" -eq 1 ] && awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/eqarr.all.awk"
+
+        case "$#" in
+            0)      printf "%s\n" "Accept at least one argument." >&2 ; exit 1;;
+            1)      awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/eqarr.awk" ;;
+            *)      awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/eqarr.all.awk";;
+        esac
+
         awk \
             -f "$___X_CMD_ROOT_MOD/awk/lib/default.awk" \
             -f "$___X_CMD_ROOT_MOD/awk/lib/json.awk" \
