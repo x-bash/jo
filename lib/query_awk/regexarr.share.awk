@@ -10,7 +10,7 @@ function selector_normalize_arr( selector, arr,     e, l ){
     for (j=1; j<=l; ++j) {
         e = arr[j]
         gsub("\002", "\\\\", e)
-        gsub("\003", ".", e)
+        gsub("\003", "\\.", e)
 
         # SPECIAL_LINE_BEGIN
         gsub("*", "[^\001]*", e)
