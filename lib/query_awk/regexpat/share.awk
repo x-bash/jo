@@ -2,7 +2,6 @@
 # 'a."b.c".d.'"$1"
 
 function selector_normalize_generic( selector, arr,     e, l ){
-    # print "selector:" selector
     if ( selector ~ /^\./ ) selector = "1" selector
     gsub(/\\\\/, "\002", selector)
     gsub(/\\\./, "\003", selector)
@@ -10,15 +9,12 @@ function selector_normalize_generic( selector, arr,     e, l ){
     for (j=1; j<=l; ++j) {
         e = arr[j]
         gsub("\002", "\\\\", e)
-        gsub("\003", "\\.", e)
+        gsub("\003", ".", e)
 
         # SPECIAL_LINE_BEGIN
-        gsub("**", ".*", e)
-        gsub("*", "[^" S "]*", e)
+        gsub( /\*\*/, ".*", e)
         # SPECIAL_LINE_END
-
         arr[j] = q( e )    # quote
     }
-
-    return selector_arr_join( l, arr )
+    return pattern_arr_join( S, l, arr )
 }

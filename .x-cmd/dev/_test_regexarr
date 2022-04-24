@@ -1,12 +1,11 @@
-git reset --soft HEAD^
 cp -r ./* ~/.x-cmd/jo
 . ./lib/query
 
-test_query_eqarr_all(){
+test_query_regexarr_all(){
 
-    x jo "$(cat .vscode/settings.json )" | ___x_cmd_jo_query 1.f*
+    x jo "$(cat .vscode/settings.json )" | ___x_cmd_jo_query 1.f\*\\.a\*
+    x jo "$(cat .vscode/settings.json )" | ___x_cmd_jo_query
 }
-
 
 
 test_query_regexarr_all

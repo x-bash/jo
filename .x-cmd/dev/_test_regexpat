@@ -1,0 +1,12 @@
+cp -r ./* ~/.x-cmd/jo
+. ./lib/query
+
+test_query_regexpat_all(){
+
+    x jo "$(cat .vscode/settings.json )" | ___x_cmd_jo_query 1.f\*
+    x jo "$(cat .vscode/settings.json )" | ___x_cmd_jo_query 1.f\* 1.\*\\.json .LICENSE
+}
+
+
+test_query_regexpat_all
+
