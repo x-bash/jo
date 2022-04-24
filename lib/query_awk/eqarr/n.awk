@@ -3,5 +3,5 @@ INPUT==1{
     for (i=1; i<=argvl; ++i) {
         print obj[ argv[i] ]
     }
-    # exit(0)
+    exit(0)
 }
