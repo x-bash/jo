@@ -1,3 +1,3 @@
 INPUT==1{
-    jiter_print_rmatch( $0, patarrl, "", "\n")
+    jiter_print_rmatch( $0, patarrl, "", "")
 }

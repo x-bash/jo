@@ -9,14 +9,17 @@
 # Using env
 # ___x_cmd_jo env_code '1.*' key score name
 
+
 ___x_cmd_jo_env(){
-    if [ -t 1 ]; then
-        eval "$(___x_cmd_jo_env_code "$@")"
-    else
-        ___x_cmd_jo_env_code "$@"
-    fi
+    case "$#" in
+        0)      x log :jo error "jo query need at least one argument and first argument"; exit 1 ;;
+        1)      ____x_cmd_jo_env_main . "$1" ;;
+        *)      ____x_cmd_jo_env_main "$@" ;;
+    esac
 }
 
-___x_cmd_jo_env_code(){
-    :
-}
+# TODO: for optimization
+# ____x_cmd_jo_env_main(){
+
+# }
+
