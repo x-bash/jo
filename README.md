@@ -37,26 +37,19 @@
 
 
 ```bash
-<.data.json x jo .classA  | (
-    eval "$(x jo env . .name .score)"
+<.data.json x jo .classA .name .score | while x rl name score; do
     echo "$name" "$score"
     echo post webservice "https://x-cmd.com/$name/$score"
-)
-
-<.data.json x jo .classA .name .score | (
-    x jo env . .name .score
-    echo "$name" "$score"
-    echo post webservice "https://x-cmd.com/$name/$score"
-)
-
-<.data.json x jo .classA .name .score | x jo env . .name .score -- '
-    echo "$name" "$score"
-    echo post webservice "https://x-cmd.com/$name/$score"
-'
+done
 
 <.data.json x jo .classA .name .score | x args -n 2 '
     echo "$1" "$2"
     echo post webservice "https://x-cmd.com/$1/$2"
+'
+
+<.data.json x jo env . .name .score -- '
+    echo "$name" "$score"
+    echo post webservice "https://x-cmd.com/$name/$score"
 '
 ```
 
@@ -101,3 +94,8 @@ while x jo renv .awk regex=beginRegex fold=autoFold; do
 done < <(x jo .class* <data.json)
 ```
 
+## env
+
+1. Design for oneliner
+2. Design to just extract a single attribute with elegance
+3. Otherwise, I will recommending you just using combination of query and `readeval/rl`
