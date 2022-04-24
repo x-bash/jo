@@ -32,8 +32,8 @@ ____x_cmd_jo_query_main_inner(){
             -f "$___X_CMD_ROOT_MOD/awk/lib/json.awk" \
             -f "$___X_CMD_ROOT_MOD/awk/lib/jiter.awk" \
             -f "$P/share.awk" \
-            -f "$P/$word.share.awk" \
-            -f "$P/$word.$awkpath_suffix"
+            -f "$P/$word/share.awk" \
+            -f "$P/$word/$awkpath_suffix"
 }
 
 # ____x_cmd_jo_query_with_eqarr(){
