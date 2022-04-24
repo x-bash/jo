@@ -54,7 +54,10 @@
     echo post webservice "https://x-cmd.com/$name/$score"
 '
 
-<.data.json x jo .classA .name .score | x args -n 2 'echo "$1" "$2"\; echo post webservice "https://x-cmd.com/$1/$2"'
+<.data.json x jo .classA .name .score | x args -n 2 '
+    echo "$1" "$2"
+    echo post webservice "https://x-cmd.com/$1/$2"
+'
 ```
 
 
