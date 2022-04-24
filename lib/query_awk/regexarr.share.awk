@@ -24,3 +24,12 @@ function handle_argument(argstr,       e ){
     for (i=2; i<=argvl; ++i)    argv[ i-1 ] = selector_normalize( argv[i] );
     argvl = argvl - 1
 }
+
+INPUT==0{
+    if ($0 == "---") {
+        handle_argument( argstr )
+        INPUT=1
+        next
+    }
+    argstr = argstr $0
+}
