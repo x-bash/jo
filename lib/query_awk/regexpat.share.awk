@@ -1,7 +1,7 @@
 # a.b\\.c.d
 # 'a."b.c".d.'"$1"
 
-function selector_normalize_arr( selector, arr,     e, l ){
+function selector_normalize_arr( selector, arr,     e, l, _ ){
     # print "selector:" selector
     if ( selector ~ /^\./ ) selector = "1" selector
     gsub(/\\\\/, "\002", selector)
@@ -11,26 +11,15 @@ function selector_normalize_arr( selector, arr,     e, l ){
         e = arr[j]
         gsub("\002", "\\\\", e)
         gsub("\003", ".", e)
-        arr[j] = q( e )    # quote
+
+        # SPECIAL_LINE_BEGIN
+        gsub("**", ".*", e)
+        gsub("*", "[^\001]*", e)
+
+        _ = (_ == "") ? q( e ) : _ S q( e )
+        # SPECIAL_LINE_END
+
     }
 
-    return l
+    return _
 }
-
-# a."b.c".d => a.b\\.c.d
-function handle_argument(argstr,       e ){
-    argvl = split(argstr, argv, "\001")
-    patarrl = selector_normalize_arr( argv[1], patarr )
-    for (i=2; i<=argvl; ++i)    argv[ i-1 ] = selector_normalize( argv[i] );
-    argvl = argvl - 1
-}
-
-INPUT==0{
-    if ($0 == "---") {
-        handle_argument( argstr )
-        INPUT=1
-        next
-    }
-    argstr = argstr $0
-}
-
