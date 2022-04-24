@@ -12,12 +12,12 @@ ____x_cmd_jo_query_main(){
         *)      awkpath_suffix="n.awk";;
     esac
 
-    local word
+    local selector_type
     case "$1" in
         "")             x log :jo error "The first argument should not be empty" ; exit 1 ;;
-        *.\*\*.)        word=regexpat ;;
-        *.\*.)          word=regexarr ;;
-        *)              word=eqarr ;;
+        *.\*\*.)        selector_type=regexpat ;;
+        *.\*.)          selector_type=regexarr ;;
+        *)              selector_type=eqarr ;;
     esac
     ____x_cmd_jo_query_main_inner "$@"
 }
@@ -32,8 +32,8 @@ ____x_cmd_jo_query_main_inner(){
             -f "$___X_CMD_ROOT_MOD/awk/lib/json.awk" \
             -f "$___X_CMD_ROOT_MOD/awk/lib/jiter.awk" \
             -f "$P/share.awk" \
-            -f "$P/$word/share.awk" \
-            -f "$P/$word/$awkpath_suffix"
+            -f "$P/$selector_type/share.awk" \
+            -f "$P/$selector_type/$awkpath_suffix"
 }
 
 # ____x_cmd_jo_query_with_eqarr(){
