@@ -2,22 +2,11 @@
     "files.defaultLanguage": "shellscript",
     "files.associations": {
         "*.json": "json",
+        "**/*.awk": "awk",
         "index.html": "shellscript",
         "**/*.md": "markdown",
-        "**/std/**": "shellscript",
-        "**/tools/*": "shellscript",
-        "**/cloud/*": "shellscript",
-        "**/cmd/*": "shellscript",
-        "**/con/*": "shellscript",
-        "**/net/*": "shellscript",
-        "**/el/*": "shellscript",
-        "**/*.awk": "awk",
         "*": "shellscript",
-        "*install*": "shellscript",
         "LICENSE": "text"
-    },
-    "files": {
-        "associations": "aaaa"
     },
     "files.trimTrailingWhitespace": true,
     "editor.detectIndentation": true,
