@@ -12,7 +12,6 @@ ____x_cmd_jo_query_main(){
         *)      awkpath_suffix="n.awk";;
     esac
 
-
     local word
     case "$1" in
         "")             x log :jo error "The first argument should not be empty" ; exit 1 ;;
