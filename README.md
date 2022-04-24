@@ -42,6 +42,11 @@
     echo post webservice "https://x-cmd.com/$name/$score"
 done
 
+<.data.json x jo .classA .name .score | x rl name score -- '
+    echo "$name" "$score"
+    echo post webservice "https://x-cmd.com/$name/$score"
+'
+
 <.data.json x jo .classA .name .score | x args -n 2 '
     echo "$1" "$2"
     echo post webservice "https://x-cmd.com/$1/$2"
@@ -79,10 +84,12 @@ done
 )"
 
 global_str="$(
-x jo env .class* .name .score <data.json | while x readeval; do
+x jo env .class* .name .score <data.json | while x reval; do
     printf "%s" "${name}${score}"
 done
 )"
+
+global_str="$(x jo env .class* .name .score <data.json | x reval 'printf "%s" "${name}${score}"')"
 
 # bash only
 
