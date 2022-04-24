@@ -1,7 +1,7 @@
 # a.b\\.c.d
 # 'a."b.c".d.'"$1"
 
-function selector_normalize( selector, arr,     e, l ){
+function selector_normalize_generic( selector, arr,     e, l ){
     # print "selector:" selector
     if ( selector ~ /^\./ ) selector = "1" selector
     gsub(/\\\\/, "\002", selector)
