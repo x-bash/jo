@@ -37,40 +37,56 @@
 
 
 ```bash
-x jo .classA <.data.json | (
-    eval "$(x jo env .awk regex=beginRegex fold=autoFold)"
-    echo "$regex" "$fold"
-    echo post webservice "https://x-cmd.com/$regex/$fold"
+<.data.json x jo .classA  | (
+    eval "$(x jo env . .name .score)"
+    echo "$name" "$score"
+    echo post webservice "https://x-cmd.com/$name/$score"
 )
 
-x jo .class* <data.json | while x jo renv .awk regex=beginRegex fold=autoFold; do
-    echo "$regex" "$fold"
-    echo post webservice "https://x-cmd.com/$regex/$fold"
-done
+<.data.json x jo .classA .name .score | (
+    x jo env . .name .score
+    echo "$name" "$score"
+    echo post webservice "https://x-cmd.com/$name/$score"
+)
 
-x jo .class* <data.json | x jo wrenv .awk regex=beginRegex fold=autoFold -- 'echo "$regex" "$fold"\; echo post webservice "https://x-cmd.com/$regex/$fold"'
+<.data.json x jo .classA .name .score | x jo env . .name .score -- '
+    echo "$name" "$score"
+    echo post webservice "https://x-cmd.com/$name/$score"
+'
 
-
-x jo .class* beginRegex autoFold <data.json | x args -n 2 'echo "$1" "$2"\; echo post webservice "https://x-cmd.com/$1/$2"'
+<.data.json x jo .classA .name .score | x args -n 2 'echo "$1" "$2"\; echo post webservice "https://x-cmd.com/$1/$2"'
 ```
 
 
 ```bash
-
 global_str=
-while x jo renv .awk regex=beginRegex fold=autoFold; do
-    global_str="${global_str}${regex}${fold}"
+while x jo env .name .score; do
+    printf "%s" "${name}${score}"
 done <<A
 $(x jo .class* <data.json)
 A
 
+global_str=
+while x rl name score; do
+    printf "%s" "${name}${score}"
+done <<A
+$(x jo env .class* .name .score <data.json)
+A
+
 # I am wondering how must cost it is ...
+global_str="$(<data.json x jo .class* .name .score -- 'printf "%s" "${name}${score}"')"
+
 global_str="$(
-x jo .class* <data.json | while x jo renv .awk regex=beginRegex fold=autoFold; do
-    printf "%s" "${regex}${fold}"
+x jo .class* .name .score <data.json | while x rl name score; do
+    printf "%s" "${name}${score}"
 done
 )"
 
+global_str="$(
+x jo env .class* .name .score <data.json | while x readeval; do
+    printf "%s" "${name}${score}"
+done
+)"
 
 # bash only
 
