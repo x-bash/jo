@@ -12,13 +12,11 @@
     "editor.detectIndentation": true,
     "editor.tabSize": 4,
     "explicitFolding.rules": {
-        "awk": [
-            {
-                "beginRegex": "^\\s*#\\s*Section:?",
-                "endRegex": "^\\s*#\\s*EndSection",
-                "autoFold": true
-            },
-        ],
+        "awk": {
+            "beginRegex": "^\\s*#\\s*Section:?",
+            "endRegex": "^\\s*#\\s*EndSection",
+            "autoFold": true
+        },
         "shellscript": [
             {
                 "beginRegex": "^\\s*#\\s*Section:?",

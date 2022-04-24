@@ -17,7 +17,7 @@ function pattern_split( selector, arr,     e, l ){
     for (j=1; j<=l; ++j) {
         e = arr[j]
         gsub("\002", "\\\\", e)
-        gsub("\003", "\\.", e)
+        gsub("\003", ".", e)
 
         arr[j] = e    # quote
     }
@@ -29,7 +29,7 @@ function pattern_quote( arrl, arr,     i, e ){
     for (i=1; i<=arrl; ++i) {
         arr[i] = q( arr[i] )
     }
-    return l
+    return arrl
 }
 
 
@@ -50,7 +50,7 @@ function accessor_normalize( selector,      arrl, arr){
 function handle_argument(argstr,       e ){
     argvl = split(argstr, argv, "\001")
     patarrl = selector_normalize_generic( argv[1], patarr )
-    for (i=2; i<=argvl; ++i)    argv[ i-1 ] = accessor_normalize( argv[i] );
+    for (i=2; i<=argvl; ++i)   argv[ i-1 ] = accessor_normalize( argv[i] );
     argvl = argvl - 1
 }
 
