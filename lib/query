@@ -40,8 +40,8 @@ ____x_cmd_jo_query_with_regexarr(){
     } | {
         case "$#" in
             0)      x log :jo error "query_with_eqarr need at least one argument." ; exit 1;;
-            1)      awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/eqarr.awk" ;;
-            *)      awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/eqarr.all.awk";;
+            1)      awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/regexarr.awk" ;;
+            *)      awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/regexarr.all.awk";;
         esac
 
         awk -f "$___X_CMD_ROOT_MOD/awk/lib/default.awk" \
@@ -55,11 +55,19 @@ ____x_cmd_jo_query_with_regexarr(){
 ____x_cmd_jo_query_with_regexpat(){
     local IFS="$___X_CMD_UNSEENCHAR_001"
     {
-        printf "%s" "$*"
-        printf "%s" "---"
+        printf "%s\n%s\n" "$*" "---"
         cat
-    } | awk \
-        -f "$___X_CMD_ROOT_MOD/awk/lib/default.awk" \
-        -f "$___X_CMD_ROOT_MOD/awk/lib/json.awk" \
-        -f "$___X_CMD_ROOT_MOD/awk/lib/jiter.awk"
+    } | {
+        case "$#" in
+            0)      x log :jo error "query_with_eqarr need at least one argument." ; exit 1;;
+            1)      awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/regexpat.awk" ;;
+            *)      awkpath="$___X_CMD_ROOT_MOD/jo/lib/query_awk/regexpat.all.awk";;
+        esac
+
+        awk -f "$___X_CMD_ROOT_MOD/awk/lib/default.awk" \
+            -f "$___X_CMD_ROOT_MOD/awk/lib/json.awk" \
+            -f "$___X_CMD_ROOT_MOD/awk/lib/jiter.awk" \
+            -f "$___X_CMD_ROOT_MOD/jo/lib/query_awk/share.awk" \
+            -f "$awkpath"
+    }
 }
