@@ -105,4 +105,4 @@ done < <(x jo .class* <data.json)
 
 1. Design for oneliner
 2. Design to just extract a single attribute with elegance
-3. Otherwise, I will recommending you just using combination of query and `readeval/rl`
+3. Otherwise, I will recommending you just using combination of query and `reval/rl`
