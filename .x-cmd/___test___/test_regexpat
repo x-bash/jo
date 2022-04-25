@@ -33,5 +33,4 @@ test_query_regexpat_n(){
 A
 }
 
-# @assert:errexit:off
 @assert:file:func
