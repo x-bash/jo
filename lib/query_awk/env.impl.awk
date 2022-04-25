@@ -19,12 +19,20 @@ function handle_argument(argstr,       e ){
     argvl = argvl - 1
 }
 
+function handle_jsontext( str ){
+    if (str !~ /^\"/) return str;  # "
+
+    str = uq(str)               # jsontext2string
+    gsub("\"", "\\\"", str)
+    return "\"" str "\""
+}
+
 function handle_output(idx, value) {
     if ( idx == 1) {
         count += 1
         if (count > 1)  print "\n"
     }
-    print varname[ idx ] "=" value ";"
+    print varname[ idx ] "=" handle_jsontext(value) ";"
 }
 
 END{
