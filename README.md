@@ -38,7 +38,7 @@
 
 ```bash
 <.data.json x jo .classA .name .score | while x rl name score; do
-    echo "$name" "$score"
+    eval echo "$name" "$score"
     echo post webservice "https://x-cmd.com/$name/$score"
 done
 
@@ -48,18 +48,8 @@ done
 '
 
 <.data.json x jo .classA .name .score | x args -n 2 '
-    echo "$1" "$2"
+    eval echo "$1" "$2"
     echo post webservice "https://x-cmd.com/$1/$2"
-'
-
-<.data.json x jo env . .name .score -- '
-    echo "$name" "$score"
-    echo post webservice "https://x-cmd.com/$name/$score"
-'
-
-<.data.json x jo env . n=.name s=.score -- '
-    echo "$name" "$score"
-    echo post webservice "https://x-cmd.com/$name/$score"
 '
 ```
 
@@ -105,7 +95,6 @@ while x jo renv .awk regex=beginRegex fold=autoFold; do
 done < <(x jo .class* <data.json)
 ```
 
-
 # 关于quote的问题
 
 当你选择在 jo-query/jo-env unquote时，数据就有可能是有换行，readline机制可能会被破坏。
@@ -113,24 +102,28 @@ done < <(x jo .class* <data.json)
 
 我们可以让jo env 做得复杂一点，通过一个复杂的分隔符来处理。
 
-```
+```bash
 <.data.json x jo env . n=.name s=.score -- '
     echo "$name" "$score"
     echo post webservice "https://x-cmd.com/$name/$score"
 '
 
 # Readline might be a big problem...
-<.data.json x jo env . -n=.name -s=.score -- '
+<.data.json x jo env . .name .name .score -- '
     echo "$name" "$score"
     echo post webservice "https://x-cmd.com/$name/$score"
 '
 
-<.data.json x jo env . n=.name s=.score -- '
-    x jo uq name score      # Takes one awk process 5ms
+<.data.json x jo env .classA .name .score | while x rml name score; do
+    echo "$name" "$score"
     echo post webservice "https://x-cmd.com/$name/$score"
-'
-```
+done
 
+<.data.json x jo .classA .name .score | x jo uq | while x rml name score; do
+    echo "$name" "$score"
+    echo post webservice "https://x-cmd.com/$name/$score"
+done
+```
 
 
 ## env
@@ -138,3 +131,34 @@ done < <(x jo .class* <data.json)
 1. Design for oneliner
 2. Design to just extract a single attribute with elegance
 3. Otherwise, I will recommending you just using combination of query and `reval/rl`
+
+
+## High Quality
+
+```bash
+
+<.data.json x jo env ".class*" .total .students | while x rml total students; do
+    printf "%s\n" "$students" | {
+    x jo env .* .name .score -- '
+    echo "$name: $(( score / total ))"
+'
+    printf "%s\n" "--- End: $total"
+}
+done
+
+<.data.json x jo env ".class*" .total .students | while x rml total students; do
+    x jo { total: "$total" }
+    printf "%s\n" "$sutdent"
+    printf "%s\n" ""
+done | {
+    x jo env . .name .score .total -- '
+    if [ -n "$total" ]; then
+        TOTAL="$total"
+    elif [ -n "$name" ]; then
+        echo "$name: $(( score / TOTAL ))"
+    else
+        printf "%s\n" "--- End: $total"
+    fi
+'
+```
+
