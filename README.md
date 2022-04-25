@@ -56,7 +56,16 @@ done
     echo "$name" "$score"
     echo post webservice "https://x-cmd.com/$name/$score"
 '
+
+<.data.json x jo env . n=.name s=.score -- '
+    echo "$name" "$score"
+    echo post webservice "https://x-cmd.com/$name/$score"
+'
 ```
+
+
+当你选择在 jo-query/jo-env unquote时，数据就有可能是有换行，readline机制可能会被破坏。
+但如果你不选择在那里unquote，把问题丢给shell，就变成了awk的调用问题了。
 
 
 ```bash
