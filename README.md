@@ -63,11 +63,6 @@ done
 '
 ```
 
-
-当你选择在 jo-query/jo-env unquote时，数据就有可能是有换行，readline机制可能会被破坏。
-但如果你不选择在那里unquote，把问题丢给shell，就变成了awk的调用问题了。
-
-
 ```bash
 global_str=
 while x jo env .name .score; do
@@ -109,6 +104,34 @@ while x jo renv .awk regex=beginRegex fold=autoFold; do
     global_str="${global_str}${regex}${fold}"
 done < <(x jo .class* <data.json)
 ```
+
+
+# 关于quote的问题
+
+当你选择在 jo-query/jo-env unquote时，数据就有可能是有换行，readline机制可能会被破坏。
+但如果你不选择在那里unquote，把问题丢给shell，就变成了每次需要在awk的调用问题了。
+
+我们可以让jo env 做得复杂一点，通过一个复杂的分隔符来处理。
+
+```
+<.data.json x jo env . n=.name s=.score -- '
+    echo "$name" "$score"
+    echo post webservice "https://x-cmd.com/$name/$score"
+'
+
+# Readline might be a big problem...
+<.data.json x jo env . -n=.name -s=.score -- '
+    echo "$name" "$score"
+    echo post webservice "https://x-cmd.com/$name/$score"
+'
+
+<.data.json x jo env . n=.name s=.score -- '
+    x jo uq name score      # Takes one awk process 5ms
+    echo post webservice "https://x-cmd.com/$name/$score"
+'
+```
+
+
 
 ## env
 
