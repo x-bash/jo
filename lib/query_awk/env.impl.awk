@@ -23,8 +23,8 @@ function handle_jsontext( str ){
     if (str !~ /^\"/) return str;  # "
 
     str = uq(str)               # jsontext2string
-    gsub("\"", "\\\"", str)
-    return "\"" str "\""
+    gsub("\'", "\\'", str)
+    return "'" str "'"
 }
 
 function handle_output(idx, value) {
