@@ -1,4 +1,4 @@
-. "$(x wsroot)"/lib/query
+
 test_query_regexarr_0(){
     @assert stdout "data | ___x_cmd_jo_query 1.f\*\\\\.a\*" << A
 "shellscript"{"*.json":"json","**/*.awk":"awk","index.html":"shellscript","**/*.md":"markdown","*":"shellscript","LICENSE":"text"}true
