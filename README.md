@@ -114,12 +114,12 @@ done < <(x jo .class* <data.json)
     echo post webservice "https://x-cmd.com/$name/$score"
 '
 
-<.data.json x jo env .classA .name .score | while x rml name score; do
+<.data.json x jo env .classA .name .score | while x readml name score; do
     echo "$name" "$score"
     echo post webservice "https://x-cmd.com/$name/$score"
 done
 
-<.data.json x jo .classA .name .score | x jo uq | while x rml name score; do
+<.data.json x jo .classA .name .score | x jo uq | while x readml name score; do
     echo "$name" "$score"
     echo post webservice "https://x-cmd.com/$name/$score"
 done
@@ -137,7 +137,7 @@ done
 
 ```bash
 
-<.data.json x jo env ".class*" .total .students | while x rml total students; do
+<.data.json x jo env ".class*" .total .students | while x readml total students; do
     printf "%s\n" "$students" | {
     x jo env .* .name .score -- '
     echo "$name: $(( score / total ))"
@@ -146,7 +146,7 @@ done
 }
 done
 
-<.data.json x jo env ".class*" .total .students | while x rml total students; do
+<.data.json x jo env ".class*" .total .students | while x readml total students; do
     x jo { total: "$total" }
     printf "%s\n" "$sutdent"
     printf "%s\n" ""
