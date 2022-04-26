@@ -29,11 +29,11 @@ function handle_jsontext( str ){
 function handle_output(idx, value) {
     if ( idx == 1) {
         count += 1
-        if (count > 1)  print "\n"
+        if (count > 1)  print "\n\003\002\005\n"
     }
     print varname[ idx ] "=" handle_jsontext(value) ";"
 }
 
 END{
-    printf "\n"
+    printf "\n\003\002\005\n"
 }
