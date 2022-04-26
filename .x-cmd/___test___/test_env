@@ -33,4 +33,29 @@ A
 
 }
 
+test_env_read(){
+    local data='{
+    "classA": [
+        {
+            "name": "l",
+            "score": 100
+        },
+        {
+            "name": "agent-z < a.json | x jo - | x jo .classA.\* .name .score | ___x_cmd_writeml
+            "name": "agent-zero-b",
+            "score": 0
+        },
+        {
+            "name": "agent-ten-b",
+            "score": 10
+        }
+    ]
+}'
+    @assert stdout 'echo "$data" |  x jo - | x jo env .classA.\* .name .score -- "echo "\$name" "\$score"" ' << A
+l 100
+agent-zero-b 0
+agent-ten-b 10
+A
+}
+
 @assert:file:func
