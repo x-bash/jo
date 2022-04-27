@@ -1,0 +1,8 @@
+{
+    "fmt": "--- Format json",
+    "color": "--- Format json with color",
+    "l|list": "--- Generate json list",
+    "d|dict": "--- Generate json dict",
+    "q": "--- Query json data; Uasge: jo q [path] [argument...]",
+    "env": "--- Get environment variables; Uasge: jo env [path] [argument...]"
+}
