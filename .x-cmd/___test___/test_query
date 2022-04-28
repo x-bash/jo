@@ -1,6 +1,6 @@
 
 test_query_eqarr_all(){
-
+    local ___X_CMD_JO_QUERY_JSTR="q1"
     @assert stdout "data | ___x_cmd_jo_query 1.files\\\\.associations" << A
 {"*.json":"json","**/*.awk":"awk","index.html":"shellscript","**/*.md":"markdown","*":"shellscript","LICENSE":"text"}
 A
@@ -10,7 +10,7 @@ A
 }
 
 test_query_eqarr(){
-
+    local ___X_CMD_JO_QUERY_JSTR="q1"
     @assert stdout "data | ___x_cmd_jo_query 1.files\\\\.associations 1.index\\\\.html" << A
 "shellscript"
 A
