@@ -24,6 +24,7 @@ ____x_cmd_jo_query_main(){
 
 ____x_cmd_jo_query_main_inner(){
     local P="$___X_CMD_ROOT_MOD/jo/lib/query_awk"
+    # local P="./lib/query_awk"
 
     {
         local IFS="${___X_CMD_UNSEENCHAR_001}"
