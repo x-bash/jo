@@ -1,37 +1,30 @@
 {
     "fmt":    {
-        "#desc": "Format json"
+        "#desc": "Format json                 Uasge: normalize json data | jo fmt"
     },
     "color":  {
-        "#desc": "Format json with color"
+        "#desc": "Format json with color      Uasge: normalize json data | jo color"
     },
     "l|list": {
-        "#desc": "Generate json list",
+        "#desc": "Generate json list          Uasge: jo list [argument...]",
         "#1": {
             "#cand": []
         }
-
     },
     "d|dict": {
-        "#desc": "Generate json dict",
+        "#desc": "Generate json dict          Uasge: jo dict [argument...]",
         "#1": {
             "#cand": []
         }
     },
     "qu": {
-        "#desc": "Query json data;",
+        "#desc": "Query json data             Uasge: jaon data | jo qu [path] [argument...]",
         "#1": {
             "#cand": []
         }
     },
     "env": {
-        "#dsc": " Get environment variables; Uasge: json data | jo env [path] [argument...]",
-        "#1": {
-            "#cand": []
-        }
-    },
-    "q0|q1|q": {
-        "#desc": "Gain json; * is an argument",
+        "#dsc": " Get environment variables;  Uasge: json data | jo env [path] [argument...]",
         "#1": {
             "#cand": []
         }
