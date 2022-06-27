@@ -1,5 +1,5 @@
 {
-    "\"\"|fmt":    {
+    "fmt":    {
         "#desc": "Format json"
     },
     "color":  {
@@ -7,32 +7,32 @@
     },
     "l|list": {
         "#desc": "Generate json list",
-        "#n": {
+        "#1": {
             "#cand": []
         }
 
     },
     "d|dict": {
         "#desc": "Generate json dict",
-        "#n": {
+        "#1": {
             "#cand": []
         }
     },
     "qu": {
         "#desc": "Query json data;",
-        "#n": {
+        "#1": {
             "#cand": []
         }
     },
     "env": {
         "#dsc": " Get environment variables; Uasge: json data | jo env [path] [argument...]",
-        "#n": {
+        "#1": {
             "#cand": []
         }
     },
     "q0|q1|q": {
         "#desc": "Gain json; * is an argument",
-        "#n": {
+        "#1": {
             "#cand": []
         }
     }
