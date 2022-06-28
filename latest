@@ -3,6 +3,9 @@
 
 # jo q a=.bcd b=.cde c=.abc
 
+# TODO: Add merge
+# TODO: Fix color and fmt definition
+
 ___x_cmd_jo(){
     case "${1}" in
         data)                                       ___x_cmd_jo_data "$@" ;;
