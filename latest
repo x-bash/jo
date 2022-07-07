@@ -13,8 +13,8 @@ ___x_cmd_jo(){
         data)                                       shift; ___x_cmd_ja_data "$@" ;;
 
         t|tokenize)                                 shift; ___x_cmd_ja_tokenized "$@" ;;
-        f|fmt)                                      shift; ___x_cmd_jo_awk | ___x_cmd_ja_fmt "$@" ;;
-        color)                                      shift; ___x_cmd_jo_awk | ___x_cmd_ja_color "$@" ;;
+        f|fmt)                                      shift; ___x_cmd_ja_fmt "$@" ;;
+        color)                                      shift; ___x_cmd_ja_color "$@" ;;
 
         v|valid)    ;;
         u|uniq)     ;;
