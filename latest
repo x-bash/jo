@@ -9,7 +9,7 @@
 ___x_cmd_jo(){
     case "${1}" in
         data)                                       ___x_cmd_jo_data "$@" ;;
-        t|tokenize)                                 ___x_cmd_jo_tokenized ;;
+        t|tokenize)                                 ___x_cmd_jo_tokenized "$@" ;;
         fmt)                                        ___x_cmd_jo_awk "$@" | ___x_cmd_jo_fmt ;;
         v|valid)    ;;
         u|uniq)     ;;
