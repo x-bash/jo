@@ -17,8 +17,8 @@ ___x_cmd_jo(){
         f|fmt)                                      shift; ___x_cmd_ja_fmt              "$@" ;;
         color)                                      shift; ___x_cmd_ja_color            "$@" ;;
 
-        "")                                         ___x_cmd_ja___warp_color_iftty ___x_cmd_ja_normalize ;;
-        \{*|\[*)                                    local IFS=" "; printf "%s" "$*" | ___x_cmd_ja___warp_color_iftty ___x_cmd_ja_normalize;;
+        "")                                         ___x_cmd_ja___normalize_stream           ;;
+        \{*|\[*)                                    ___x_cmd_ja___normalize_argstring   "$@" ;;
 
         v|valid)    ;;
         u|uniq)     ;;
