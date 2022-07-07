@@ -6,13 +6,15 @@
 # TODO: Add merge
 # TODO: Fix color and fmt definition
 
+xrc:mod ja/lib/share/index
+
 ___x_cmd_jo(){
     case "${1}" in
-        data)                                       ___x_cmd_jo_data "$@" ;;
+        data)                                       shift; ___x_cmd_ja_data "$@" ;;
 
-        t|tokenize)                                 ___x_cmd_ja_tokenized "$@" ;;
-        f|fmt)                                      ___x_cmd_jo_awk | ___x_cmd_ja_fmt "$@" ;;
-        color)                                      ___x_cmd_jo_awk | ___x_cmd_ja_color "$@" ;;
+        t|tokenize)                                 shift; ___x_cmd_ja_tokenized "$@" ;;
+        f|fmt)                                      shift; ___x_cmd_jo_awk | ___x_cmd_ja_fmt "$@" ;;
+        color)                                      shift; ___x_cmd_jo_awk | ___x_cmd_ja_color "$@" ;;
 
         v|valid)    ;;
         u|uniq)     ;;
