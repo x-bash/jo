@@ -16,7 +16,7 @@
         "#1": {
             "#cand": []
         }
-    }
+    },
     "qu": {
         "#desc": "Query json data             Uasge: json data | jo qu [path] [argument...]",
         "#1": {
