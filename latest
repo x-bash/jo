@@ -18,15 +18,15 @@ ___x_cmd_jo(){
 
         v|valid)    ;;
         u|uniq)     ;;
-        l|list)       shift;                        ___x_cmd_jo_wrap ___x_cmd_jo_list   "$@" ;;
-        d|dict)       shift;                        ___x_cmd_jo_wrap ___x_cmd_jo_dict   "$@" ;;
+        l|list)       shift;                        ___x_cmd_ja___warp_color_iftty ___x_cmd_jo_list   "$@" ;;
+        d|dict)       shift;                        ___x_cmd_ja___warp_color_iftty ___x_cmd_jo_dict   "$@" ;;
 
-        # q)          shift;                        ___x_cmd_jo_wrap
+        # q)          shift;                        ___x_cmd_ja___warp_color_iftty
 
-        "")                                         ___x_cmd_jo_wrap ___x_cmd_jo_awk ;;
+        "")                                         ___x_cmd_ja___warp_color_iftty ___x_cmd_jo_awk ;;
 
         \{*|\[*)                                    local IFS=" "; printf "%s" "$*" | \
-                                                    ___x_cmd_jo_wrap ___x_cmd_jo_awk;;
+                                                    ___x_cmd_ja___warp_color_iftty ___x_cmd_jo_awk;;
 
         qu)                                         ___x_cmd_jo_quote "$@" ;;
         uq)                                         ___x_cmd_jo_unquote "$@" ;;
@@ -39,9 +39,9 @@ ___x_cmd_jo(){
 
         #   We will add some query functions and modified function here ...
         # *)
-        #             if [ "$#" -eq 0 ]; then         ___x_cmd_jo_wrap ___x_cmd_jo_awk
+        #             if [ "$#" -eq 0 ]; then         ___x_cmd_ja___warp_color_iftty ___x_cmd_jo_awk
         #             else                    local IFS=" "; printf "%s" "$*" | \
-        #                                             ___x_cmd_jo_wrap ___x_cmd_jo_awk
+        #                                             ___x_cmd_ja___warp_color_iftty ___x_cmd_jo_awk
         #             fi
     esac
 }
@@ -52,13 +52,6 @@ ___x_cmd_jo_awk(){
         -f "$___X_CMD_ROOT/jo/lib/normalize.awk"
 }
 
-___x_cmd_jo_wrap(){
-    if [ ! -t 1 ]; then
-        "$@"
-    else
-        "$@" | ___x_cmd_jo_color
-    fi
-}
 
 # Section: subcmd
 
