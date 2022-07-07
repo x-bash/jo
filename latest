@@ -13,7 +13,7 @@ ___x_cmd_jo(){
         data)                                       shift; ___x_cmd_ja_data             "$@" ;;
 
         n|normalize)                                shift; ___x_cmd_ja_normalize        "$@" ;;
-        t|tokenize)                                 shift; ___x_cmd_ja_tokenized        "$@" ;;
+        t|tokenize)                                 shift; ___x_cmd_ja_tokenize         "$@" ;;
         f|fmt)                                      shift; ___x_cmd_ja_fmt              "$@" ;;
         color)                                      shift; ___x_cmd_ja_color            "$@" ;;
 
