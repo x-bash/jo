@@ -4,9 +4,3 @@ ___x_cmd_jo_isqu(){
         *)          return 1 ;;
     esac
 }
-
-___x_cmd_jo_tokenize(){
-    command awk -v ORS="${1:-\n}" \
-                -f "$___X_CMD_ROOT_MOD/awk/lib/json.awk" \
-                -f "$___X_CMD_ROOT_MOD/ja/lib/awk/tokenized_main.awk"
-}
